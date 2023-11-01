@@ -38,11 +38,11 @@ bot = ChatBot(
     
 # Training the bot
 
-trainer = ChatterBotCorpusTrainer(bot)
+# trainer = ChatterBotCorpusTrainer(bot)
 
-trainer.train(
-    "./data/",
-)
+# trainer.train(
+#     "./data/",
+# )
 
 def bot_response(query):
     # Check if the query contains mathematical operations
