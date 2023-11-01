@@ -1,4 +1,4 @@
-chatterbot==1.1.0a7
+chatterbot @ git+https://github.com/Sreethesh007/ChatterbotFix@main
 nltk==3.8.1
 spacy==2.1
 flask==2.2.5
