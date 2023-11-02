@@ -7,3 +7,4 @@ chatterbot-corpus
 PyYAML==5.3
 gunicorn==21.2.0
 Flask-SocketIO==5.3.6
+gevent-websocket==0.10.1
