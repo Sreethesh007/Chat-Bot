@@ -74,9 +74,7 @@ function botResponse(rawText) {
     waitForResponse=true;
     // Bot Response
     $.get("/get", { msg: rawText }).done(function (data) {
-        waitForResponse = false;
-      console.log(rawText);
-      console.log("response:"+ data); 
+      waitForResponse = false;
       const msgText = data;
 
       // Replace the loading animation with the actual response
