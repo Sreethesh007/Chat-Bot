@@ -1,19 +1,5 @@
 var waitForResponse = false;
 var socket = io.connect('https://chatty-5zjq.onrender.com');
-socket.on('bot_response', function(data) {
-        console.log("response:"+ data); 
-        const msgText = data;
-
-        // Replace the loading animation with the actual response
-        chatContent.removeChild(loadingAnimation);
-        chatContent.innerText = data;
-
-        // Automatically scroll to the latest message again
-        chats.scrollTop = chats.scrollHeight;
-        chatContent.innerText = msgText;
-      
-        waitForResponse = false;
-    });
 
 document.getElementById('clear').addEventListener('click', () => {
     var butt = document.getElementById('clear')
@@ -89,6 +75,21 @@ function botResponse(rawText) {
     chats.scrollTop = chats.scrollHeight;
     waitForResponse=true;
     socket.emit('message', {message: rawText});
+
+    socket.on('bot_response', function(data) {
+        console.log("response:"+ data); 
+        const msgText = data;
+
+        // Replace the loading animation with the actual response
+        chatContent.removeChild(loadingAnimation);
+        chatContent.innerText = data;
+
+        // Automatically scroll to the latest message again
+        chats.scrollTop = chats.scrollHeight;
+        chatContent.innerText = msgText;
+      
+        waitForResponse = false;
+    });
     
     // // Bot Response
     // $.get("/get", { msg: rawText }).done(function (data) {
