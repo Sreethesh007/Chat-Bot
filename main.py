@@ -2,7 +2,7 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 import string
 import nltk
-nltk.download('punkt')
+nltk.download('popular')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
