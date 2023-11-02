@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="website icon" href="{{url_for('static', filename='logo.png')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatBot</title>
@@ -12,7 +13,7 @@
     <div class="header">
         <div class="topnav-bar-main-mfbd">
             <div class="img-and-logo----mfbd">
-                <a id="img_main" href="index.html"><img src=" {{url_for('static', filename='logo.png')}}" class="topnav-bar----img"></a>
+                <a id="img_main" href="index.html"><img src="{{url_for('static', filename='logo.png')}}" class="topnav-bar----img"></a>
                 
                 <a href="index.html"><span class="topnav-bar----txt">Chatbot</span> </a>
             </div>

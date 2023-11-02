@@ -270,15 +270,16 @@ a {
     color: rgb(74, 74, 90);
     font-family: OpenSans;
     font-weight:900;
-    
+
 }
 #centre_msg > h1{
     text-align:center;
     line-height: 0px;
     pointer-events: none;
-    
+
 }
 #centre_msg > h4 {
+    text-align:center;
     color:rgb(72, 72, 85);
     font-size: small;
     pointer-events: none;
@@ -286,11 +287,11 @@ a {
 
 #centre_msg {
     pointer-events: none;
-    width: 60vw;
+    opacity: 0.5;
     position: relative;
-    left: 20vw;
-    right: 20vw;
-    top: 20vw;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
