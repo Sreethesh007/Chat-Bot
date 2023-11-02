@@ -1,4 +1,6 @@
 var waitForResponse = false;
+var socket = io.connect('https://chatty-5zjq.onrender.com');
+
 document.getElementById('clear').addEventListener('click', () => {
     var butt = document.getElementById('clear')
     butt.style.animationName = "clickanim";
@@ -72,24 +74,41 @@ function botResponse(rawText) {
       // Automatically scroll to the latest message
     chats.scrollTop = chats.scrollHeight;
     waitForResponse=true;
-    // Bot Response
-    $.get("/get", { msg: rawText }).done(function (data) {
+    socket.emit('message', {message: rawText});
+
+    socket.on('bot_response', function(data) {
+        console.log("response:"+ data); 
+        const msgText = data;
+
+        // Replace the loading animation with the actual response
+        chatContent.removeChild(loadingAnimation);
+        chatContent.innerText = data;
+
+        // Automatically scroll to the latest message again
+        chats.scrollTop = chats.scrollHeight;
+        chatContent.innerText = msgText;
+      
         waitForResponse = false;
-      console.log(rawText);
-      console.log("response:"+ data); 
-      const msgText = data;
+    });
+    
+    // // Bot Response
+    // $.get("/get", { msg: rawText }).done(function (data) {
+    //     waitForResponse = false;
+    //   console.log(rawText);
+    //   console.log("response:"+ data); 
+    //   const msgText = data;
 
-      // Replace the loading animation with the actual response
-      chatContent.removeChild(loadingAnimation);
-      chatContent.innerText = data;
+    //   // Replace the loading animation with the actual response
+    //   chatContent.removeChild(loadingAnimation);
+    //   chatContent.innerText = data;
 
-      // Automatically scroll to the latest message again
-      chats.scrollTop = chats.scrollHeight;
-      chatContent.innerText = msgText;
+    //   // Automatically scroll to the latest message again
+    //   chats.scrollTop = chats.scrollHeight;
+    //   chatContent.innerText = msgText;
       
 
 
-    });
+    // });
 
   }
 

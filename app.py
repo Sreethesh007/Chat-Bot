@@ -1,8 +1,10 @@
 from chatterbot import ChatBot
 from main import bot_response
 from flask import Flask, render_template, request
+from flask_socketio import SocketIO,emit
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 app.static_folder = 'static'
 
 @app.route("/")
@@ -17,5 +19,11 @@ def get_bot_response():
     
     return str(response)
 
+@socketio.on('message')
+def handle_message(data):
+    query = data['message']
+    response = bot_response(query)
+    emit('bot_response', {'message': str(response)})
+
 if __name__ == "__main__":
-    app.run()
+    socketio.run(app)
