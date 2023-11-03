@@ -36,60 +36,54 @@ function removeelement (idr) {
 let messageCounter = 0;
 let chatText = '';
 
-
 function botResponse(rawText) {
     const chats = document.querySelector('.content-area');
     const chatId = 'chat_' + String(messageCounter);
 
     if (messageCounter > 0) {
-        document.getElementById('centre_msg').style.display = "none"
-    } 
+        document.getElementById('centre_msg').style.display = "none";
+    }
+
     const chatMessage = document.createElement('div');
     chatMessage.setAttribute('class', 'chat-message');
-    chatMessage.setAttribute('id', 'chats_msgs')
-    chatMessage.style.alignSelf = 'flex-end'; // Sets the msg to right side of the screen
+    chatMessage.style.marginLeft = "30%";
+    chatMessage.setAttribute('id', 'chats_msgs');
+    chatMessage.style.alignSelf = 'flex-end';
 
-      // Create a chat message content
     const chatContent = document.createElement('div');
     chatContent.setAttribute('class', 'chat-content');
     chatContent.setAttribute('id', chatId);
 
-      // Do the Loading Animation
     const loadingAnimation = document.createElement('div');
     loadingAnimation.setAttribute('class', 'lds-ellipsis');
-    for (var i=0; i < 4; i++) {
-        let x = document.createElement('div');
-        loadingAnimation.appendChild(x);
+    for (let i = 0; i < 4; i++) {
+        const loadingDot = document.createElement('div');
+        loadingAnimation.appendChild(loadingDot);
     }
     chatContent.appendChild(loadingAnimation);
-
-      // Append chat message content to the container
     chatMessage.appendChild(chatContent);
-
-      // Append the chat message container to the chat area
     chats.appendChild(chatMessage);
-
-      // Automatically scroll to the latest message
     chats.scrollTop = chats.scrollHeight;
-    waitForResponse=true;
-    // Bot Response
+    waitForResponse = true;
+
     $.get("/get", { msg: rawText }).done(function (data) {
-      waitForResponse = false;
-      const msgText = data;
+        waitForResponse = false;
+        chatContent.removeChild(loadingAnimation);
+        chatContent.textContent = "";
 
-      // Replace the loading animation with the actual response
-      chatContent.removeChild(loadingAnimation);
-      chatContent.innerText = data;
+        let i = 0;
+        function typeNextCharacter() {
+            if (i < data.length) {
+                chatContent.textContent += data.charAt(i);
+                i++;
+                setTimeout(typeNextCharacter, 50);
+            }
+        }
 
-      // Automatically scroll to the latest message again
-      chats.scrollTop = chats.scrollHeight;
-      chatContent.innerText = msgText;
-      
-
-
+        typeNextCharacter();
+        chats.scrollTop = chats.scrollHeight;
     });
-
-  }
+}
 
 function chat_send() {
     if (waitForResponse)
